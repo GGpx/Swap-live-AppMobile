@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Item, Input, Icon } from 'native-base'
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -51,23 +52,27 @@ export default class LoginForm extends Component<Props> {
   render() {
     return (
       <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          autoCapitalize={'none'}
-          placeholder="login"
-          value={this.state.Login}
-          onChangeText={(text) => { this.setState({ Login: text }) }}
-        />
-        <TextInput
-          style={styles.input}
-          autoCapitalize={'none'}
-          placeholder="password"
-          value={this.state.Password}
-          onChangeText={(text) => { this.setState({ Password: text }) }}
-        />
-        <TouchableOpacity onPress={this._onLogin.bind(this)} style={styles.button}>
+        <Item regular>
+          <Icon active type="FontAwesome" name='user' />
+          <Input
+            autoCapitalize={'none'}
+            placeholder="login"
+            value={this.state.Login}
+            onChangeText={(text) => { this.setState({ Login: text }) }}
+          />
+        </Item>
+        <Item regular>
+          <Icon active name='lock' />
+          <Input
+            autoCapitalize={'none'}
+            placeholder="password"
+            value={this.state.Password}
+            onChangeText={(text) => { this.setState({ Password: text }) }}
+          />
+        </Item>
+        <Button rounded danger block onPress={this._onLogin.bind(this)}>
           <Text>Identification</Text>
-        </TouchableOpacity>
+        </Button>
         <TouchableOpacity onPress={() => { this.props.setParentState({ isLogin: false }); }} style={styles.link}>
           <Text>Créer mon compte</Text>
         </TouchableOpacity>
