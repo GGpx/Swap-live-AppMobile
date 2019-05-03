@@ -5,12 +5,21 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'reac
 type Props = {};
 export default class AcountForm extends Component<Props> {
   state = {
-
+    firstName: "",
+    lastName: "",
+    login: "",
+    password: "",
   }
 
   _onCreate() {
     console.log('onCreate')
 
+    // console.log(JSON.stringify({
+    //   Name: this.state.name,
+    //   lastName: this.state.lastName,
+    //   email: this.state.email,
+    //   password: this.state.password
+    // }));
 
     fetch(
       'http://10.1.171.108:3000/users', {
@@ -20,11 +29,11 @@ export default class AcountForm extends Component<Props> {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          firstName: this.state.firstName,
+          name: this.state.firstName,
           lastName: this.state.lastName,
-          email: this.state.Login,
-          password: this.state.Password,
-        }),
+          email: this.state.login,
+          password: this.state.password
+        })
       })
       .then((response) => response.text())
       .then((datas) => {
@@ -50,27 +59,27 @@ export default class AcountForm extends Component<Props> {
           style={styles.input}
           autoCapitalize={'none'}
           placeholder="firstName"
-          onChangeText={() => { }}
+          onChangeText={(text) => {this.setState({ firstName: text }) }}
         />
         <TextInput
           style={styles.input}
           autoCapitalize={'none'}
           placeholder="lastName"
-          onChangeText={() => { }}
+          onChangeText={(text) => {this.setState({ lastName: text }) }}
         />
         <TextInput
           style={styles.input}
           autoCapitalize={'none'}
           placeholder="login"
-          onChangeText={() => { }}
+          onChangeText={(text) => {this.setState({ login: text }) }}
         />
         <TextInput
           style={styles.input}
           autoCapitalize={'none'}
           placeholder="password"
-          onChangeText={() => { }}
+          onChangeText={(text) => {this.setState({ password: text }) }}
         />
-        <TouchableOpacity onPress={this._onCreate} style={styles.button}>
+        <TouchableOpacity onPress={this._onCreate.bind(this)} style={styles.button}>
           <Text>Créer mon compte</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => { this.props.setParentState({ isLogin: true }); }} style={styles.link}>
