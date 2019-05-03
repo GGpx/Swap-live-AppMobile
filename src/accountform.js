@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 
+//const server = 'http://10.1.171.58:3000' ;
+const server = 'http://swaplive.it-students.fr' ;
+
 type Props = {};
 export default class AcountForm extends Component<Props> {
   state = {
@@ -13,7 +16,7 @@ export default class AcountForm extends Component<Props> {
 
 
     fetch(
-      'http://10.1.171.108:3000/users', {
+      server+'/users', {
         method: 'POST',
         headers: {
           // Accept: 'application/json',
