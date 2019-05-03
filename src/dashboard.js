@@ -7,13 +7,16 @@ export default class DashBoard extends Component<Props> {
     user:{},
     conversations : []
   };
-  componentDidMount() {
-    this.state.user = this.props.user ;
-    // faire un fetch pour récupérer la liste des conversations 
-    // insérer dans this.state.conversations la liste recue par le serveur
+  componentDidUpdate() {
+    if(this.props.user != this.state.user) {
+      this.setState({user : this.props.user}) ;
+      // faire un fetch pour récupérer la liste des conversations 
+      // insérer dans this.state.conversations la liste recue par le serveur
+    }
   }
 
   render() {
+    this.componentDidUpdate()
     return (
       <View style={styles.form}>
         <Text>Bienvenue {this.state.user.name}</Text>
@@ -27,7 +30,6 @@ export default class DashBoard extends Component<Props> {
       </View>
     );
   }
-
 }
 
 

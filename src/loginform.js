@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Button, Item, Input, Icon } from 'native-base'
 
-//const server = 'http://10.1.171.58:3000' ;
-const server = 'http://swaplive.it-students.fr' ;
+const server = 'http://10.1.171.58:3000' ;
+//const server = 'http://swaplive.it-students.fr' ;
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -42,7 +42,7 @@ export default class LoginForm extends Component<Props> {
         console.log(datas);
         console.log(this.state)
         // si OK => donne accés au dashboard
-        if (datas.result == "connexion réussis YALLLLA") {
+        if (datas.state == "ok") {
           // @todo deplacer --
           fetch(server+'/users/'+datas.id, {
             headers: {
