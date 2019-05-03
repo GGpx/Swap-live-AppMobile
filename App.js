@@ -10,7 +10,8 @@ type Props = {};
 export default class App extends Component<Props> {
   state = {
     isLogin: true,
-    isLogged: false
+    isLogged: false,
+    user : {}
   }
 
   render() {
@@ -21,7 +22,7 @@ export default class App extends Component<Props> {
         </View>
         {
           (this.state.isLogged) ? (
-            <DashBoard />
+            <DashBoard user={this.state.user}/>
           ) : (
               (this.state.isLogin) ? (
                 <LoginForm setParentState={this.setState.bind(this)} />

@@ -30,6 +30,7 @@ export default class AcountForm extends Component<Props> {
         headers: {
           // Accept: 'application/json',
           'Content-Type': 'application/json',
+          'credentials': 'same-origin',
         },
         body: JSON.stringify({
           name: this.state.firstName,
@@ -38,16 +39,26 @@ export default class AcountForm extends Component<Props> {
           password: this.state.password
         })
       })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((datas) => {
         // à la reponse
         console.log(datas);
         console.log(this.state)
         // si OK => donne accés au dashboard
-        if (datas == "connexion OK") {
+        if (datas.result == "ok") {
           // @todo deplacer --
-          this.props.setParentState({ isLogged: true });
-          console.log(this.state)
+          fetch(server+'/users/'+datas.id, {
+            headers: {
+              // Accept: 'application/json',
+              'credentials': 'same-origin',
+            }
+          })
+            .then((response) => response.json())
+            .then((userDatas) => {
+              console.log(userDatas)
+              this.props.setParentState({ isLogged: true, user:userDatas });
+              this.setState({ Password: '' })
+            });
         } else {
           this.setState({ Password: '' })
           alert(datas);

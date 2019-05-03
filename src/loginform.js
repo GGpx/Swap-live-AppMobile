@@ -29,6 +29,7 @@ export default class LoginForm extends Component<Props> {
         headers: {
           // Accept: 'application/json',
           'Content-Type': 'application/json',
+          'credentials': 'same-origin',
         },
         body: JSON.stringify({
           email: this.state.Login,
@@ -43,8 +44,18 @@ export default class LoginForm extends Component<Props> {
         // si OK => donne accés au dashboard
         if (datas.result == "connexion réussis YALLLLA") {
           // @todo deplacer --
-          this.props.setParentState({ isLogged: true });
-          console.log(this.state)
+          fetch(server+'/users/'+datas.id, {
+            headers: {
+              // Accept: 'application/json',
+              'credentials': 'same-origin',
+            }
+          })
+            .then((response) => response.json())
+            .then((userDatas) => {
+              console.log(userDatas)
+              this.props.setParentState({ isLogged: true, user:userDatas });
+              this.setState({ Password: '' })
+            });
         } else {
           this.setState({ Password: '' })
           alert(datas);

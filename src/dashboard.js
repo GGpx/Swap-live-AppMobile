@@ -3,11 +3,27 @@ import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {};
 export default class DashBoard extends Component<Props> {
+  state = {
+    user:{},
+    conversations : []
+  };
+  componentDidMount() {
+    this.state.user = this.props.user ;
+    // faire un fetch pour récupérer la liste des conversations 
+    // insérer dans this.state.conversations la liste recue par le serveur
+  }
 
   render() {
     return (
       <View style={styles.form}>
-        <Text>Bienvenue</Text>
+        <Text>Bienvenue {this.state.user.name}</Text>
+        {
+          this.state.conversations.map(conversation => {
+            <View>
+              <Text>Conversation ... </Text>
+            </View>
+          })
+        }
       </View>
     );
   }
